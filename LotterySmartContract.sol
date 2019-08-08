@@ -16,4 +16,14 @@ contract Lottery{
         
     }
     
-}
+    function deposit() public payable{
+        require(msg.value >= 1 ether);
+        players.push(msg.sender);
+    }
+    
+    function GenerateRandom() public view returns(uint){
+        return uint(keccak256(abi.encodePacked(now,block.difficulty,players.length)));
+    }
+    
+} 
+
