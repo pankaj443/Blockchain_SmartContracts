@@ -24,6 +24,21 @@ contract Lottery{
     function GenerateRandom() public view returns(uint){
         return uint(keccak256(abi.encodePacked(now,block.difficulty,players.length)));
     }
+   
+
+ function Winner() OwnerOnly public{
+            uint randomNo = GenerateRandom();
+            uint index = randomNo% players.length;
+            
+            address payable WinnerAddress;
+            
+            WinnerAddress = players[index];
+            
+            WinnerAddress.transfer(address(this).balance);
+            
+            players = new address payable[](0);
+            
+    }
     
-} 
+}
 
